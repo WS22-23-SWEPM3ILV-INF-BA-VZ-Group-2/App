@@ -65,7 +65,7 @@
     "np": "^7.6.2",
     "prettier": "^2.8.0",
     "react-native-version": "^4.0.0",
-    "sonarqube-scanner": "^2.8.2"
+    "sonarqube-scanner": "^2.9.0"
   },
   "prettier": {
     "jsxBracketSameLine": true,
