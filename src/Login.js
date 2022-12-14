@@ -1,21 +1,52 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Btn from './Btn'
 import { darkGreen, gray } from './Constants'
 import Field from './Field'
 
 const Login = (props) => {
+  const [ email, setEmail] = useState("");
+  const [ password, setPassword] = useState("");
+
+  const handleLogin = event => {
+    event.preventDefault();
+    const uploadData = new FormData();
+
+    const strongRegex = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+
+    if (email.length < 4 || email.length > 70) {
+      alert("Invalid email or username.");
+    } else if (!strongRegex.test(email) || !email) {
+      alert("Invalid email.")
+    } else if (password.length < 8) {
+      alert("Password is too short.");
+    } else {
+      uploadData.append('email', email);
+      uploadData.append('password', password);
+      console.log(uploadData);
+      alert("Account created!")
+    }
+  };
+
   return (
     <View style={styles.view}>
       <Text style={styles.title}>Login</Text>
       <Text style={styles.subtitle}>Login to your account</Text>
-      <Field placeholder="Email / Username" keyboardType={'email-address'} />
-      <Field placeholder="Password" secureTextEntry={true} />
+      <Field
+        placeholder="Email / Username"
+        keyboardType={'email-address'}
+        onChange={event => setEmail(event.target.value)}
+      />
+      <Field
+        placeholder="Password"
+        onChange={event => setPassword(event.target.value)}
+        secureTextEntry={true}
+      />
       <Btn
         textColor="white"
         bgColor={darkGreen}
         btnLabel="Login"
-        Press={() => alert('Logged In')}
+        Press={handleLogin}
       />
       <View style={styles.form}>
         <Text style={styles.callout}>Do not have an account ? </Text>
