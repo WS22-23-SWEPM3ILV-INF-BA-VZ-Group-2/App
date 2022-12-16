@@ -5,6 +5,7 @@ import { darkGreen, gray, red } from './Constants'
 import Field from './Field'
 
 const Login = (props) => {
+
   const [ email, setEmail] = useState("");
   const [ password, setPassword] = useState("");
   const[ errorMsg, setErrorMsg] = useState("");
@@ -36,19 +37,33 @@ const Login = (props) => {
     event.preventDefault();
     const uploadData = new FormData();
 
-    const strongRegex = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+
+    const strongRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/
+
+    setEmailErrorMsg('')
+    setPasswordErrorMsg('')
 
     if (!strongRegex.test(email) || !email) {
-      alert("Invalid email.")
+      setEmailErrorMsg('Invalid email.')
     } else if (password.length < 8) {
-      alert("Password is too short.");
+      setPasswordErrorMsg('Password is too short.')
     } else {
+
       uploadData.append('email', email);
       uploadData.append('password', password);
       console.log(uploadData);
       await loginUser()
+
     }
-  };
+  }
+
+  const handleEmail = async (text) => {
+    setEmail(text)
+  }
+
+  const handlePassword = async (text) => {
+    setPassword(text)
+  }
 
   return (
     <View style={styles.view}>
@@ -58,16 +73,20 @@ const Login = (props) => {
         placeholder="Email"
         keyboardType={'email-address'}
         onChangeText={(text) => setEmail(text)}
+
       />
+      <Text style={styles.error}>{emailErrorMsg}</Text>
       <Field
         placeholder="Password"
         onChangeText={(text) => setPassword(text)}
+
         secureTextEntry={true}
       />
+      <Text style={styles.error}>{passwordErrorMsg}</Text>
       <Btn
         textColor="white"
         bgColor={darkGreen}
-        btnLabel="Login"
+        btnLabel="Let's go!"
         Press={handleLogin}
       />
       <View style={styles.form}>
@@ -82,11 +101,7 @@ const Login = (props) => {
 
 const styles = StyleSheet.create({
   view: {
-    height: 700,
-    width: 460,
-    borderTopLeftRadius: 150,
-    paddingTop: 200,
-    paddingRight: 70,
+    marginVertical: 100,
     alignItems: 'center',
   },
   title: {

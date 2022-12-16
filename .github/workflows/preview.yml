@@ -1,8 +1,10 @@
+name: Preview
 on:
   pull_request:
     types: [opened, synchronize]
 jobs:
   preview:
+    if: ${{ !contains(github.event.pull_request.labels.*.name, '0 diff dependencies') }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -25,7 +27,7 @@ jobs:
         run: npm install
 
       - name: 🚀 Publish to Expo
-        run: expo publish --release-channel=pr-${{ github.event.number }} --non-interactive
+        run: API_URL=${{ secrets.API_URL }} expo publish --release-channel=pr-${{ github.event.number }} --non-interactive
 
       - name: 💬 Comment in preview
         uses: expo/expo-github-action/preview-comment@v7
