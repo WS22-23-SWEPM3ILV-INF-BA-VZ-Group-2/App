@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Btn from './Btn'
 import { darkGreen, gray, red } from './Constants'
+import Constants from 'expo-constants'
 import Field from './Field'
 
 const Login = (props) => {
   const [ email, setEmail] = useState("");
   const [ password, setPassword] = useState("");
-  const[ errorMsg, setErrorMsg] = useState("");
+  const [ errorMsg, setErrorMsg ] = useState("");
+
+
 
   const loginUser = async () => {
     await fetch(`${Constants.manifest?.extra?.API_URL}/login`, {
@@ -27,10 +30,16 @@ const Login = (props) => {
         return
       }
       if (response.status === 403) {
-        errorMsg('Email already taken or typed invalid inputs')
+        setErrorMsg('Email already taken, or invalid inputs')
       }
     })
   }
+
+
+
+
+
+
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -48,7 +57,7 @@ const Login = (props) => {
       console.log(uploadData);
       await loginUser()
     }
-  };
+  }
 
   return (
     <View style={styles.view}>
