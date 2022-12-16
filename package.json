@@ -33,7 +33,7 @@
     "gh-pages": "^4.0.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-native": "0.70.5",
+    "react-native": "0.70.6",
     "react-native-dotenv": "^3.4.6",
     "react-native-safe-area-context": "^4.4.1",
     "react-native-screens": "^3.18.2",
@@ -41,7 +41,7 @@
     "webpack-config": "^7.5.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
+    "@babel/core": "^7.20.5",
     "@cypress/code-coverage": "^3.10.0",
     "@cypress/instrument-cra": "^1.4.0",
     "babel-eslint": "^10.1.0",
@@ -53,7 +53,7 @@
     "eslint-config-standard-jsx": "^11.0.0",
     "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.5.1",
+    "eslint-plugin-n": "^15.6.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
@@ -61,11 +61,11 @@
     "eslint-plugin-react-native": "^4.0.0",
     "eslint-plugin-standard": "^5.0.0",
     "husky": "^8.0.2",
-    "lint-staged": "^13.0.3",
+    "lint-staged": "^13.0.4",
     "np": "^7.6.2",
     "prettier": "^2.8.0",
     "react-native-version": "^4.0.0",
-    "sonarqube-scanner": "^2.8.2",
+    "sonarqube-scanner": "^2.9.1",
     "webpack.config.js": "0.0.0"
   },
   "prettier": {
