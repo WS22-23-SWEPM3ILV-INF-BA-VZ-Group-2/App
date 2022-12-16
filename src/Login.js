@@ -77,7 +77,7 @@ const Login = (props) => {
 
       
       
-      <Field placeholder= "Email" onChangeText={handleEmail} />
+      
       <Text style = {styles.error}>{emailerrorMsg}</Text>
       <Field
         placeholder="Email"
