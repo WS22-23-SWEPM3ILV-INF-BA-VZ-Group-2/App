@@ -1,14 +1,38 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Btn from './Btn'
-import { darkGreen, gray } from './Constants'
+import { darkGreen, gray, red } from './Constants'
 import Field from './Field'
 
 const Login = (props) => {
   const [ email, setEmail] = useState("");
   const [ password, setPassword] = useState("");
+  const[ errorMsg, setErrorMsg] = useState("");
 
-  const handleLogin = event => {
+  const loginUser = async () => {
+    await fetch(`${Constants.manifest?.extra?.API_URL}/login`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    }).then(function (response) {
+      if (response.status === 201) {
+        setErrorMsg('')
+        props.navigation.navigate('Login')
+        return
+      }
+      if (response.status === 403) {
+        errorMsg('Email already taken or typed invalid inputs')
+      }
+    })
+  }
+
+  const handleLogin = async (event) => {
     event.preventDefault();
     const uploadData = new FormData();
 
@@ -22,7 +46,7 @@ const Login = (props) => {
       uploadData.append('email', email);
       uploadData.append('password', password);
       console.log(uploadData);
-      alert("Account created!")
+      await loginUser()
     }
   };
 
@@ -33,11 +57,11 @@ const Login = (props) => {
       <Field
         placeholder="Email"
         keyboardType={'email-address'}
-        onChangeText={text => setEmail(text)}
+        onChangeText={(text) => setEmail(text)}
       />
       <Field
         placeholder="Password"
-        onChangeText={text => setPassword(text)}
+        onChangeText={(text) => setPassword(text)}
         secureTextEntry={true}
       />
       <Btn
@@ -84,6 +108,7 @@ const styles = StyleSheet.create({
   },
   callout: { fontSize: 16, fontWeight: 'bold' },
   register: { color: darkGreen, fontWeight: 'bold', fontSize: 16 },
+  error: { color: red, fontSize: 16 },
 })
 
 export default Login
